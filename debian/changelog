@@ -1,3 +1,9 @@
+equivs (2.0.9ubuntu1~pkt1) precise; urgency=low
+
+  * Add support for creating source packages for uploading to ppa
+
+ -- Pantelis Koukousoulas <pktoss@gmail.com>  Thu, 26 Jan 2012 12:13:44 +0200
+
 equivs (2.0.9) unstable; urgency=low
 
   * Upgrade to Policy 3.9.2 - no changes.

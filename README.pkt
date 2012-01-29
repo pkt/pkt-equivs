@@ -1,0 +1,15 @@
+This is a version of equivs augmented with the (forward-ported) patch from
+debian bug report #603850 that adds a new option "-S" (source only).
+
+This option creates source-only packages, suitable for uploading to a
+launchpad ppa.
+
+Upstream seems to be of the opinion that packages created with equivs
+aren't meant to be uploaded anywhere (which is in a purist sense
+correct since equivs' main purpose is to "cheat" debian's package
+system for local workarounds like a self-compiled apache).
+
+But, another fairly legitimate use of "equivs" is to easily/fast create
+metapackages to automate portions of your setup and these metapackages
+are fair game for uploading to a ppa. This is my motivation for maintaining
+this version.

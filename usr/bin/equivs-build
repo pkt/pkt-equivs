@@ -22,19 +22,20 @@ my %control;
 
 sub usage {
   print STDERR <<EOU;
-Usage: equivs-build [--full|-f] [--arch=foo|-a=foo] controlfile
+Usage: equivs-build [--full|-f] [--source|-s] [--arch=foo|-a=foo] controlfile
 controlfile is the name of an equivs controlfile.
 You can use "equivs-control filename" to create one.
 
 --full   Full build including signing, etc., suitable for upload to Debian
+--source Source build including signing, etc., suitable for upload to a PPA
 --arch   Build package for a different architecture.
          Used e.g. for building Hurd packages under Linux.
 EOU
   exit 1;
 }
 
-my ($full_package, $arch);
-GetOptions('full|f' => \$full_package, 'arch|a=s' => \$arch) or usage();
+my ($full_package, $source_only, $arch);
+GetOptions('full|f' => \$full_package, 'source|s' => \$source_only, 'arch|a=s' => \$arch) or usage();
 
 my $debug = 0;
 
@@ -167,6 +168,8 @@ unlink glob "debian/*.in";
 my @build_cmd;
 if ($full_package) {
     @build_cmd = (qw(dpkg-buildpackage -rfakeroot), ($arch ? "-a$arch" : ()));
+} elsif ($source_only) {
+    @build_cmd = (qw(dpkg-buildpackage -S -rfakeroot), ($arch ? "-a$arch" : ()));
 } else {
     @build_cmd = (($arch ? ("dpkg-architecture", "-a$arch", "-c") : ()),
                   qw(fakeroot debian/rules binary));
